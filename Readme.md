@@ -42,18 +42,8 @@ Please feel free to contribute to this project by submitting issues or pull requ
 
 ## License
 
-This project is licensed under the [License Name] - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-Mention any credits, inspiration, or references you'd like to acknowledge.
-
-## Contact
-
-Kingshuk Nandy
-kingshuknandy2018@gmail.com
-[Other Contact Information]
-
-Feel free to reach out with any questions or feedback!
-
-css
+Thank you for using this template. I hope it helps you build your next project with ease.
