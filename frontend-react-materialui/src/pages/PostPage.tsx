@@ -8,6 +8,7 @@ import { fetchPostAsync } from '../store/thunk/PostThunk';
 import ErrorFallbackUI from '../components/ErrorFallbackUi';
 import { useReduxSelector } from '../hooks/useReduxSelector';
 import WithLoader from '../hoc/hoc_with_loader';
+import WithLayout from '../hoc/hoc_withLayout';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   paddingTop: theme.spacing(10),
@@ -65,4 +66,4 @@ const PostPage: React.FC<PostPageProps> = ({
 
 const PostsWithLoader = WithLoader(PostPage);
 
-export default PostsWithLoader;
+export default WithLayout(PostsWithLoader);

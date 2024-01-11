@@ -1,10 +1,12 @@
 import { Grid } from '@mui/material';
 import NavBar from './Navbar';
-import SideBar from './Sidebar';
-import ApplicationRouter from '../routes/Routes';
 import SideBarRoleBased from './SidebarRoleBased';
+import { ReactNode } from 'react';
 
-const Layout = () => {
+export interface LayoutProps {
+  children?: ReactNode;
+}
+const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <NavBar name={'Kingshuk Nandy'}></NavBar>
@@ -14,7 +16,7 @@ const Layout = () => {
           {/* <SideBar></SideBar> */}
         </Grid>
         <Grid item sm={9}>
-          <ApplicationRouter></ApplicationRouter>
+          {children}
         </Grid>
       </Grid>
     </>

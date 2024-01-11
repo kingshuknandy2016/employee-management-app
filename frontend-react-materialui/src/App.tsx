@@ -10,6 +10,7 @@ import { useReduxSelector } from './hooks/useReduxSelector';
 import { AuthInterface } from './store/slice/auth_slice';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorFallbackUI from './components/ErrorFallbackUi';
+import ApplicationRouter from './routes/Routes';
 
 export const App = () => {
   const auth = useReduxSelector('auth') as AuthInterface;
@@ -18,16 +19,7 @@ export const App = () => {
       <ThemeProvider theme={theme}>
         <ErrorBoundary errorFallbackUi={<ErrorFallbackUI />}>
           <BrowserRouter>
-            {auth.isAuthenticated ? <Layout /> : <LoginPage />}
-            {/* <NavBar name={'Kingshuk Nandy'}></NavBar>
-            <Grid container>
-              <Grid item sm={3}>
-                <SideBar></SideBar>
-              </Grid>
-              <Grid item sm={9}>
-                <ApplicationRouter></ApplicationRouter>
-              </Grid>
-            </Grid> */}
+            {auth.isAuthenticated ? <ApplicationRouter /> : <LoginPage />}
           </BrowserRouter>
         </ErrorBoundary>
       </ThemeProvider>

@@ -25,37 +25,8 @@ import theme from '../Theme';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Search } from '@mui/icons-material';
 import { useState } from 'react';
-
-export const DummyData: Employee[] = [
-  {
-    id: 1,
-    name: 'Kingshuk Nandy',
-    department: 'Admin',
-    contact: { email: 'king@12134' },
-    hireDate: new Date('2015-03-25'),
-  },
-  {
-    id: 2,
-    name: 'Ram Sharma',
-    department: 'Admin',
-    contact: { email: 'ram@12134', mobileNumber: 905678898 },
-    hireDate: new Date('2015-03-29'),
-  },
-  {
-    id: 3,
-    name: 'Virat Kohli ',
-    department: 'Software',
-    contact: { email: 'virat@12134' },
-    hireDate: new Date(),
-  },
-  {
-    id: 4,
-    name: 'Anurah Basu',
-    department: 'Hardware',
-    contact: { email: 'basu@12134' },
-    hireDate: new Date(),
-  },
-];
+import WithLayout from '../hoc/hoc_withLayout';
+import { employeeDummyData } from '../mock_data/employeeData';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   paddingTop: theme.spacing(10),
@@ -84,6 +55,11 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
   height: '3rem',
   fontSize: '1rem',
   margin: '.5rem',
+  [theme.breakpoints.down('desktop')]: {
+    width: '10rem',
+    height: '2rem',
+    fontSize: '.85rem',
+  },
 }));
 
 type Department = 'Admin' | 'Hardware' | 'Software' | 'Marketing';
@@ -98,7 +74,7 @@ export interface Employee {
 }
 
 const filteredList = (input: string) => {
-  return DummyData.filter((element) => {
+  return employeeDummyData.filter((element) => {
     if (input.trim() === '') {
       return element;
     } else {
@@ -178,7 +154,7 @@ const EmployeeDashboard = () => {
                       }}
                     />
                   )}
-                  options={DummyData.map((ele) => ele.name)}
+                  options={employeeDummyData.map((ele) => ele.name)}
                 ></Autocomplete>
               </Box>
 
@@ -194,7 +170,11 @@ const EmployeeDashboard = () => {
                 <MenuItem value={'Inactive'}>Inactive</MenuItem>
               </Select>
             </Box>
-            <Box>
+            <Box
+              sx={{
+                display: 'flex',
+              }}
+            >
               <ButtonStyled variant="outlined">Add Employees</ButtonStyled>
 
               <ButtonStyled variant="outlined">Import Employees</ButtonStyled>
@@ -261,4 +241,4 @@ const EmployeeDashboard = () => {
   );
 };
 
-export default EmployeeDashboard;
+export default WithLayout(EmployeeDashboard);
