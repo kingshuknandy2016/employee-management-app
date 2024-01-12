@@ -17,9 +17,8 @@
     "dev": "nodemon --config nodemon.json src/index.ts",
     "eslint:fix": "eslint --fix",
     "test": "jest",
-    "create:migration":"node ../node_modules/db-migrate/bin/db-migrate create migration-name --sql-file",
+    "create:migration": "node ../node_modules/db-migrate/bin/db-migrate create migration-name --sql-file",
     "migrate:admin-create": "node node_modules/db-migrate/bin/db-migrate up --config database/database.json --migrations-dir database/migrations"
-
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",

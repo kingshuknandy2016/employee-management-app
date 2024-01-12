@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, Application } from "express";
+import express, { Express, Request, Response, Application, NextFunction } from "express";
 import fs from "fs";
 import path from "path";
 import YAML from "yamljs";
@@ -51,6 +51,7 @@ export default class ServiceConfiguration {
         this.app.use(cookieParser());
         this.app.use(bodyParser.urlencoded({ extended: true }));
 
+
         // Swagger Express Middleware Setup
         fs.promises.readFile(swaggerYamlPath).then((swaggerConfig) => {
           swaggerConfig = YAML.parse(swaggerConfig.toString("utf-8"));
@@ -76,6 +77,12 @@ export default class ServiceConfiguration {
         });
 
         this.app.use(handleErrors);
+        // Allowing CORS in the Server Side
+        this.app.use((req: Request, res: Response, next:NextFunction)=>{
+          res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+          next();
+        })
         // Testing Basic Route(Health)
         this.app.get("/health", (req: Request, res: Response) => {
           res.send("Express Server is healthy");
