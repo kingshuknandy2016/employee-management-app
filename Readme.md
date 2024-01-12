@@ -75,7 +75,7 @@ Handles database operations, including CRUD (Create, Read, Update, Delete) funct
 ## Architecture 
 Organizes the project into folders such as controllers, models, routes, and services to maintain a clean and modular codebase.
 
-![Data Flow](../employee-management-app/docs/images/architecture.jpeg)
+![Data Flow](./docs/images/architecture.jpeg)
 
  - **Start Microservice :** [index.ts](./backend-express-postgresql/src/index.ts) to start the microservice application
  - **Express App Setup** : Configures the main Express application [app.ts](./backend-express-postgresql/src/app.ts) by adding middleware, such as body-parser for parsing JSON requests.
