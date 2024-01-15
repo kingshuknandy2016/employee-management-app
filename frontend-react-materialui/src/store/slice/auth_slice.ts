@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export interface LoggedUser {
+  id: number;
   username: string;
   role: string | undefined;
 }
@@ -11,7 +12,7 @@ export interface AuthInterface {
 }
 const initialState: AuthInterface = {
   isAuthenticated: false,
-  user: { username: '', role: undefined },
+  user: { id: 0, username: '', role: undefined },
 };
 export const authSlice = createSlice({
   name: 'auth',
@@ -23,7 +24,7 @@ export const authSlice = createSlice({
     },
     signOut: (state) => {
       state.isAuthenticated = false;
-      state.user = { username: '', role: '' };
+      state.user = { id: 0, username: '', role: '' };
     },
   },
 });

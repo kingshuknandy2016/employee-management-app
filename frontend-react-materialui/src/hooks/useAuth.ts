@@ -1,9 +1,9 @@
-import { BrowserStorageService } from '../services/BrowserStorageService';
+import { BrowserStorageService } from '../services/browser_storage_service';
 import {
   getExpirationDecoded,
   getUserDetailsDecoded,
   verifyToken,
-} from '../services/TokenService';
+} from '../services/token_service';
 
 /**
  * This is an hook which  verifies the token performs multiple operations

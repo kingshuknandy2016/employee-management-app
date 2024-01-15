@@ -17,12 +17,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Google } from '@mui/icons-material';
 import { useState } from 'react';
 // import { mimicBackendSignInAPI } from '../utils/backendApiMock';
-import { BrowserStorageService } from '../services/BrowserStorageService';
+import { BrowserStorageService } from '../services/browser_storage_service';
 import { useAppDispatch } from '../store/hooks';
 import { LoggedUser, signIn } from '../store/slice/auth_slice';
 import { useNavigate } from 'react-router-dom';
-import { mimicBackendSignInAPI } from '../services/TokenService';
+import { mimicBackendSignInAPI } from '../services/token_service';
 import { useAuth } from '../hooks/useAuth';
+import axios from 'axios';
+import { APIService } from '../services/api_service';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -31,17 +33,46 @@ const LoginPage = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get('email') as string;
+    const username = data.get('email') as string;
     const password = data.get('password') as string;
 
-    const authDetails = mimicBackendSignInAPI(email, password);
-    console.log(authDetails);
-    if (authDetails.statusCode === 200 && authDetails.auth_token) {
-      BrowserStorageService.put('token', authDetails.auth_token, 'auth');
-      dispatch(signIn(authDetails.userDetails as LoggedUser));
-      navigate('/');
-    } else {
-    }
+    // //---Mimic Backend Call-----//
+    // const authDetails = mimicBackendSignInAPI(username, password);
+    // if (authDetails.statusCode === 200 && authDetails.auth_token) {
+    //   BrowserStorageService.put('token', authDetails.auth_token, 'auth');
+    //   dispatch(signIn(authDetails.userDetails as LoggedUser));
+    //   navigate('/');
+    // } else {
+    // }
+    APIService.post('auth', 'login', {
+      username,
+      password,
+    })
+      .then((data) => {
+        const responseData = data as any as {
+          message: string;
+          user_details: {
+            id: number;
+            username: string;
+            role: string;
+          };
+          auth_token: string;
+        };
+        if (responseData.auth_token) {
+          BrowserStorageService.put('token', responseData.auth_token, 'auth');
+          dispatch(signIn(responseData.user_details as LoggedUser));
+          navigate('/');
+        } else {
+          console.log(
+            `Error Occurred. ${JSON.stringify({
+              message: responseData.message,
+            })}`
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(`${JSON.stringify(err)}`);
+      });
   };
   return (
     <ThemeProvider theme={theme}>

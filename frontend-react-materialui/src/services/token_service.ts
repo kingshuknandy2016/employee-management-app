@@ -1,7 +1,7 @@
 import { HttpStatusCode } from 'axios';
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
 
-const JWT_SECRET: string = process.env.JWT_SECRET || 'secretKey';
+const JWT_SECRET: string = process.env.JWT_SECRET || '"123456"';
 const tokenExpirationInSeconds = 1800; // Expires in  30 min
 
 export type Role = 'ADMIN' | 'USER' | 'HR' | 'SALES' | 'DEV';
